@@ -44,6 +44,7 @@ def get_balance(account_number: str):
     """
     if account_number not in accounts:
         raise HTTPException(status_code=404, detail="Account not found")
+    
     return {"account_number": account_number, "balance": accounts[account_number]["balance"]}
 
 @app.post("/accounts/{account_number}/withdraw")
@@ -58,7 +59,11 @@ def withdraw(account_number: str, transaction: Transaction):
         raise HTTPException(status_code=400, detail="Amount must be positive")
 
     if accounts[account_number]["balance"] < transaction.amount:
-        raise HTTPException(status_code=400, detail="Insufficient funds")
+        raise HTTPException(status_code=400, detail=(
+                f"Insufficient funds: current balance is {accounts[account_number]['balance']}, "
+                f"attempted to withdraw {transaction.amount}"
+            )
+        )
 
     accounts[account_number]["balance"] -= transaction.amount
     accounts[account_number]["history"].append({
