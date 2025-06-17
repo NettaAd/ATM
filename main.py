@@ -8,7 +8,7 @@ and viewing transaction history with timestamps.
 Assignment-required endpoints are listed first, followed by enrichment (optional) endpoints.
 """
 from typing import Dict
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
@@ -69,7 +69,7 @@ def withdraw(account_number: str, transaction: Transaction):
     accounts[account_number]["history"].append({
         "type": "withdraw",
         "amount": transaction.amount,
-        "timestamp": datetime.now(UTC).isoformat()
+        "timestamp": datetime.now(timezone.utc).isoformat()
     })
     return {"account_number": account_number, "balance": accounts[account_number]["balance"]}
 
@@ -88,7 +88,7 @@ def deposit(account_number: str, transaction: Transaction):
     accounts[account_number]["history"].append({
         "type": "deposit",
         "amount": transaction.amount,
-        "timestamp": datetime.now(UTC).isoformat()
+        "timestamp": datetime.now(timezone.utc).isoformat()
     })
     return {"account_number": account_number, "balance": accounts[account_number]["balance"]}
 
@@ -109,7 +109,7 @@ def create_account(account: AccountCreate):
         "history": [{
             "type": "create",
             "amount": account.initial_balance,
-            "timestamp": datetime.now(UTC).isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }]
     }
     return {"message": "Account created", "account_number": account.account_number}
