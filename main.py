@@ -9,8 +9,9 @@ Assignment-required endpoints are listed first, followed by enrichment (optional
 """
 from typing import Dict
 from datetime import datetime, timezone
-from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import PlainTextResponse
 
 app = FastAPI()
 
@@ -144,3 +145,14 @@ def root():
     Root endpoint providing a friendly message and link to API documentation.
     """
     return {"message": "ATM API is running. Visit /docs for API documentation."}
+
+@app.get("/robots.txt")
+async def robots():
+    """
+    Endpoint to serve a robots.txt file allowing all web crawlers.
+    """
+    content = """
+        User-agent: *
+        Disallow:
+        """
+    return PlainTextResponse(content, media_type="text/plain")
