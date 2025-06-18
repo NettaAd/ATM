@@ -13,8 +13,23 @@ It allows users to:
 All data is stored in-memory.
 
 **Live Demo:**  
-- API Docs: [https://netta-atm.azurewebsites.net/docs](https://netta-atm.azurewebsites.net/docs)  
 - Root URL: [https://netta-atm.azurewebsites.net](https://netta-atm.azurewebsites.net)
+- API Docs: [https://netta-atm.azurewebsites.net/docs](https://netta-atm.azurewebsites.net/docs)  
+
+**How to Use the Docs:**
+The `/docs` endpoint provides an interactive UI (powered by **Swagger UI**) where you can explore and test the API directly from your browser.
+
+1. **Navigate to `/docs`**  
+   Open [https://netta-atm.azurewebsites.net/docs](https://netta-atm.azurewebsites.net/docs)
+
+2. **Expand any endpoint**  
+   Click on a method like `POST /accounts/{account_number}/deposit` to view required input and example schemas.
+
+3. **Try it out**  
+   Click the "Try it out" button, fill in parameters (like `account_number` and request body), then click **Execute**.
+
+4. **View the response**  
+   You’ll see the full HTTP response including the response code, headers, and JSON body.
 
 **Deployment:**  
 This project is deployed using **Azure App Service for Linux**, which allows you to host web apps using a fully managed platform-as-a-service (PaaS) model.
@@ -42,23 +57,34 @@ This project is deployed using **Azure App Service for Linux**, which allows you
 
 ---
 
-## How to Run locally
+## How to Run Locally (PowerShell)
 
-1. **Install dependencies**  
-   (Make sure you are in your virtual environment)
+1. **Clone the repository**
    ```
-   pip install fastapi uvicorn pydantic httpx pytest
+    git clone https://github.com/NettaAd/ATM.git
+    cd ATM
    ```
 
-2. **Start the server locally**
+2. **Create and activate a virtual environment (optional but recommended)**  
+    ```
+    python -m venv venv
+    .\venv\Scripts\Activate.ps1
+    ```
+
+3. **Install dependencies**
+    ```
+    pip install fastapi uvicorn pydantic httpx pytest
+     ```
+
+4. **Start the server locally**
    ```
    uvicorn main:app --reload
    ```
 
-3. **API Documentation**  
+5. **API Documentation**  
    Visit [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for interactive API docs.
 
-4. **Run tests**
+6. **Run tests**
    ```
    pytest test_main.py
    ```
