@@ -10,7 +10,25 @@ It allows users to:
 - (Enrichment) Create and delete accounts
 - (Enrichment) View transaction history with timestamps
 
-All data is stored in-memory for demonstration and educational purposes.
+All data is stored in-memory.
+
+**Live Demo:**  
+- API Docs: [https://netta-atm.azurewebsites.net/docs](https://netta-atm.azurewebsites.net/docs)  
+- Root URL: [https://netta-atm.azurewebsites.net](https://netta-atm.azurewebsites.net)
+
+**Deployment:**  
+This project is deployed using **Azure App Service for Linux**, which allows you to host web apps using a fully managed platform-as-a-service (PaaS) model.
+
+- Deployment is done directly via Git using Azure's deployment center.
+- The service runs a Linux container that supports Python and FastAPI.
+- Logs and startup messages can be viewed via Kudu or the Azure Portal.
+
+**Why Azure App Service?**
+
+- **Free Tier Available:** Ideal for small projects and demos like this.
+- **Easy Git Integration:** Push code to a branch and it auto-deploys.
+- **Built-in Monitoring & Logs:** Easy debugging with streaming logs and SSH access.
+- **Supports FastAPI out of the box:** Python apps run seamlessly on the Linux-based App Service.
 
 ---
 
@@ -24,7 +42,7 @@ All data is stored in-memory for demonstration and educational purposes.
 
 ---
 
-## How to Run
+## How to Run locally
 
 1. **Install dependencies**  
    (Make sure you are in your virtual environment)
@@ -32,7 +50,7 @@ All data is stored in-memory for demonstration and educational purposes.
    pip install fastapi uvicorn pydantic httpx pytest
    ```
 
-2. **Start the server**
+2. **Start the server locally**
    ```
    uvicorn main:app --reload
    ```
@@ -122,6 +140,21 @@ All data is stored in-memory for demonstration and educational purposes.
 ```json
 {
   "message": "Account created",
+  "account_number": "789"
+}
+```
+
+---
+
+### (Enrichment) Delete Account
+
+**Request:**  
+`DELETE /accounts/789`
+
+**Response:**
+```json
+{
+  "message": "Account deleted",
   "account_number": "789"
 }
 ```
